@@ -1,0 +1,10 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Home - My Site{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <h1>Welcome, {{ user.firstName|default:"Guest" }}!</h1>
+        <p>This is the homepage of our Django app.</p>
+    </div>
+{% endblock %}

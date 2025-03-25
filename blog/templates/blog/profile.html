@@ -1,0 +1,14 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Profile - {{ user.username }}{% endblock %}
+
+{% block content %}
+    <div class="card mx-auto" style="max-width: 500px;">
+        <div class="card-body">
+            <h3 class="card-title">Profile</h3>
+            <p><strong>Username:</strong> {{ user.firstName }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Joined:</strong> {{ user.created_at}}</p>
+        </div>
+    </div>
+{% endblock %}

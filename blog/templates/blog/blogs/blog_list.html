@@ -1,0 +1,31 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Blog List{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center my-4">All Blogs</h1>
+    <div class="mb-3">
+        <a href="{% url 'blog_create' %}" class="btn btn-primary">Create New Blog</a>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"> <!-- Add grid for responsive design -->
+        {% for blog in blogs %}
+        <div class="col">
+            <div class="card h-100">
+                {% if blog.file %}
+                <img src="{{ blog.file.url }}" class="card-img-top" alt="{{ blog.title }}" style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ blog.title }}</h5>
+                    <p class="card-text">{{ blog.content|truncatewords:30 }}</p> <!-- Truncate content for preview -->
+                    <a href="{% url 'blog_detail' blog.id %}" class="btn btn-primary">Read More</a>
+                </div>
+                <div class="card-footer text-muted">
+                    <small>By <span class="fw-bold">{{ blog.user.firstName }} {{ blog.user.lastName }}</span> on <span>{{ blog.created_at|date:"F j, Y" }}</span></small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

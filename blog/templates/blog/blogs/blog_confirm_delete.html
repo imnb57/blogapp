@@ -1,0 +1,23 @@
+<!-- blog/templates/blog/blog_confirm_delete.html -->
+{% extends "blog/base.html" %}
+
+{% block title %}Delete Blog{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Are you sure you want to delete this blog?</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ blog.title }}</h5>
+            
+            <p>By {{ blog.user.firstName }} {{ blog.user.lastName }} on {{ blog.created_at }}</p>
+
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Yes, delete it!</button>
+                <a href="{% url 'blog_detail' blog.id %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

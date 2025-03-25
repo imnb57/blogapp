@@ -18,6 +18,7 @@
     {% if blog.user == request.user %}
         <div class="mt-3">
             <a href="{% url 'blog_edit' blog.id %}" class="btn btn-warning">Edit Blog</a>
+            <a href="{% url 'blog_delete' blog.id %}" class="btn btn-danger">Delete</a>
         </div>
     {% endif %}
 </div>

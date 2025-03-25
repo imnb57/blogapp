@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm
 from .forms import BlogForm
 from .models import Blog
+from django.http import Http404
 
 def home(request):
     return render(request, "blog/home.html")
@@ -63,6 +64,21 @@ def blog_create(request):
     else:
         form = BlogForm()
     return render(request, 'blog/blogs/blog_form.html', {'form': form})
+
+@login_required
+def blog_delete(request, id):
+    blog = get_object_or_404(Blog, id=id)
+
+    # Check if the logged-in user is the owner of the blog post
+    if blog.user != request.user:
+        raise Http404("You do not have permission to delete this blog post.")
+
+    # If the user is the owner, delete the blog
+    if request.method == 'POST':
+        blog.delete()
+        return redirect('blog_list')  # Redirect to the blog list page after deleting
+
+    return render(request, 'blog/blogs/blog_confirm_delete.html', {'blog': blog})
 
 # View to edit an existing blog (optional)
 @login_required

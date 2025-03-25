@@ -6,6 +6,7 @@ from .forms import BlogForm
 from .models import Blog
 from django.http import Http404
 
+@login_required
 def home(request):
     return render(request, "blog/home.html")
 
